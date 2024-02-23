@@ -21,14 +21,18 @@
           v-model="loginData.password"
         />
         <button class="form-submit" type="submit">Iniciar sesión</button>
+        <button class="form-submit" @click="goToRegister">Registrarse</button>
       </form>
     </div>
   </template>
   
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router';
 
 const loginData = ref({ email: '', password: '' })
+
+const router = useRouter();
 
 const login = () => {
   const storedUserString = localStorage.getItem(loginData.value.email)
@@ -36,14 +40,19 @@ const login = () => {
     const storedUser = JSON.parse(storedUserString)
     if (storedUser.password === loginData.value.password) {
       alert('Inicio de sesión exitoso')
+      router.push('/home')
     } else {
       alert('Correo o contraseña incorrectos')
     }
   } else {
     alert('El correo proporcionado no está registrado')
   }
-};
-  </script>
+}
+
+const goToRegister = () => {
+  router.push('/registro');
+}
+</script>
 
 
 <style scoped>

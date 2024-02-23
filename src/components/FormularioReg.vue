@@ -9,14 +9,18 @@
         <label class="form-label" for="password">Contraseña:</label>
         <input class="form-input" type="password" id="password" v-model="registerData.password" required>
         <button class="form-submit" type="submit">Registrarse</button>
+        <button class="form-submit" @click="goToLogin">Iniciar sesión</button>
       </form>
     </div>
   </template>
   
   <script setup lang="ts">
   import { ref } from 'vue';
+  import { useRouter } from 'vue-router';
   
   const registerData = ref({ name: '', email: '', password: '' })
+
+  const router = useRouter();
 
   const register = () => {
 
@@ -36,7 +40,10 @@
     }
     localStorage.setItem(registerData.value.email, JSON.stringify(userData))
     alert('Usuario registrado correctamente')
-  };
+  }
+  const goToLogin = () => {
+  router.push('/inicio');
+}
   </script>
   
   <style scoped>
